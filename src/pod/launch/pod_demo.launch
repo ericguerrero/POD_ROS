@@ -1,0 +1,13 @@
+<launch>
+  <node pkg="pod" type="pod" name="pod" args="$(find pod)/config/ 0" output="screen">
+  <remap from="image_in" to="/stereo_down/right/image_raw" />
+  <remap from="image_out" to="image_po" />
+  </node>
+  <node name="image_view_out" pkg="image_view" type="image_view">
+    <remap from="image" to="image_po" />
+  </node>
+  <node name="image_view_in" pkg="image_view" type="image_view">
+    <remap from="image" to="/stereo_down/right/image_raw" />
+  </node>
+  <node pkg="rosbag" type="play" name="rosbag" args="/home/usuario/Documents/recerca/prog/podetector/bagfiles/2015-11-12-16-56-16_0.bag" output="screen" />
+</launch>
