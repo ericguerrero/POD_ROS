@@ -14,9 +14,8 @@ void PODNode::processImage(const sensor_msgs::ImageConstPtr& msg) {
   Mat outImage;
   _theDetector->set_image(cv_bridge::toCvShare(msg, "bgr8")->image);
   _theDetector->classify_image();
-  _theRefiner.set_data(_theDetector->get_image(),_theDetector->get_classification());
-  _theRefiner.process();
-  outImage=_overlay?_theRefiner.get_refined_overlayed():_theRefiner.get_refined_scaled();
+  outImage=_theDetector->get_graphic_classification();
+
   _pub.publish(cv_bridge::CvImage(std_msgs::Header(), "bgr8", outImage).toImageMsg());
 }
 
