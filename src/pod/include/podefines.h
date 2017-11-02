@@ -13,8 +13,8 @@
 #define _POD_IMAGE_COLS_    320     // Images are resized to this width...
 #define _POD_IMAGE_ROWS_    240     // ... and height.
 #define _POD_IMAGE_NCHAN_   1       // Image channels. Set to 1 or 3
-#define _POD_NPATCH_COL_    20      // Number of columns of patches.
-#define _POD_NPATCH_ROW_    20      // Number of rows of patches.
+#define _POD_NPATCH_COL_    40      // Number of columns of patches.
+#define _POD_NPATCH_ROW_    30      // Number of rows of patches.
 #define _POD_GABOR_SCALES_  5       // Number of scales in the filter bank.
 #define _POD_GABOR_ORIENT_  8       // Number of gabor orientations in f. bank.
 #define _POD_GABOR_ROWS_    8       // Number of rows per filter.
