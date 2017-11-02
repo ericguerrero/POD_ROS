@@ -1,13 +1,30 @@
 <launch>
+  <!-- Bag -->
+  <arg name="path"    default= "/media/eric-uib/HardDisk/bagfiles" />
+  <arg name="mission" default= "/2016_09_13_valldemossa_kinetic" />
+  <arg name="file1"     default= "/20160913_125249_1.bag" />
+  <arg name="file2"     default= "/20160913_125249_2.bag" />
+  <arg name="file3"     default= "/20160913_125249_3.bag" />
+  <arg name="bags"    default= "$(arg path)$(arg mission)$(arg file1) $(arg path)$(arg mission)$(arg file2) $(arg path)$(arg mission)$(arg file3)" />
+  <node pkg="rosbag" type="play" name="rosbag" args="$(arg bags) " output="screen" />
+
+
+  <arg name="camera" default="/stereo_down"/>
+
+  <include file="$(find turbot)/launch/modules/stereo_pipeline.launch">
+    <arg name="stereo" value="$(arg camera)" />
+  </include>
+
   <node pkg="pod" type="pod" name="pod" args="$(find pod)/config/ 0" output="screen">
-  <remap from="image_in" to="/stereo_down/right/image_raw" />
-  <remap from="image_out" to="image_po" />
+    <remap from="image_in" to="$(arg camera)/scaled_x2/right/image_rect_color" />
+    <remap from="image_out" to="image_po" />
   </node>
   <node name="image_view_out" pkg="image_view" type="image_view">
     <remap from="image" to="image_po" />
   </node>
   <node name="image_view_in" pkg="image_view" type="image_view">
-    <remap from="image" to="/stereo_down/right/image_raw" />
+    <remap from="image" to="$(arg camera)/scaled_x2/right/image_rect_color" />
   </node>
-  <node pkg="rosbag" type="play" name="rosbag" args="/home/usuario/Documents/recerca/prog/podetector/bagfiles/2015-11-12-16-56-16_0.bag" output="screen" />
+
+  
 </launch>

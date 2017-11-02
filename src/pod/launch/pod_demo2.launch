@@ -1,0 +1,36 @@
+<launch>
+
+<node pkg="rosbag" type="play" name="rosbag" args="/home/xesc/BAGFILES_BAG/valldemossa-12_nov-2015-amb_estructures/bag_files/2015-11-12-16-56-16_0.bag 
+						     /home/xesc/BAGFILES_BAG/valldemossa-12_nov-2015-amb_estructures/bag_files/2015-11-12-16-57-43_1.bag
+						     /home/xesc/BAGFILES_BAG/valldemossa-12_nov-2015-amb_estructures/bag_files/2015-11-12-16-59-11_2.bag " output="screen" />
+
+
+<!--node pkg="rosbag" type="play" name="rosbag" args="/home/xesc/BAGFILES_BAG/valldemossa_13_09_2016/20160913_125249_1.bag 
+						   /home/xesc/BAGFILES_BAG/valldemossa_13_09_2016/20160913_125249_2.bag" output="screen" /-->
+
+<!--node pkg="rosbag" type="play" name="rosbag" args="/home/xesc/BAGFILES_BAG/palma_bay_10_03_2017/170310_1139_0040.bag 
+						   /home/xesc/BAGFILES_BAG/palma_bay_10_03_2017/170310_1139_0041.bag
+ 						   /home/xesc/BAGFILES_BAG/palma_bay_10_03_2017/170310_1139_0042.bag" output="screen" /-->
+
+<!--node pkg="rosbag" type="play" name="rosbag" args="/home/xesc/BAGFILES_BAG/palma_bay_10_03_2017/170310_1139_0042.bag" output="screen" /-->
+
+
+  <arg name="camera" default="/stereo_down"/>
+
+  <include file="$(find turbot)/launch/modules/stereo_pipeline.launch">
+    <arg name="stereo" value="$(arg camera)" />
+  </include>
+
+  <node pkg="pod" type="pod" name="pod" args="$(find pod)/config/ 1" output="screen">
+  <remap from="image_in" to="$(arg camera)/scaled_x2/right/image_rect_color" />
+  <remap from="image_out" to="image_po" />
+  </node>
+  <node name="image_view_out" pkg="image_view" type="image_view">
+    <remap from="image" to="image_po" />
+  </node>
+  <node name="image_view_in" pkg="image_view" type="image_view">
+    <remap from="image" to="$(arg camera)/scaled_x2/right/image_rect_color" />
+  </node>
+
+  
+</launch>

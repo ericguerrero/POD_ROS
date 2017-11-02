@@ -1,0 +1,28 @@
+<launch>
+  <arg name="show" default="True"/>
+  <arg name="camera" default="/stereo_down"/>
+  <arg name="scale" default="/scaled_x2"/>
+
+  <!-- Stereo Pipline -->
+  <include file="$(find turbot)/launch/modules/stereo_pipeline.launch">
+    <arg name="stereo" value="$(arg camera)" />
+  </include>
+
+  <!-- Classifier -->
+  <node pkg="pod" type="pod" name="pod" args="$(find pod)/config/ 0" output="screen">
+    <remap from="image_in" to="$(arg camera)$(arg scale)/right/image_rect_color" />
+    <remap from="image_out" to="image_po" />
+  </node>
+
+  <!-- View images -->
+  <group if="$(arg show)">
+    <node  name="image_view_out" pkg="image_view" type="image_view">
+      <remap from="image" to="image_po" />
+    </node>
+    <node name="image_view_in" pkg="image_view" type="image_view">
+      <remap from="image" to="$(arg camera)$(arg scale)/right/image_rect_color" />
+    </node>
+  </group>
+
+  
+</launch>
