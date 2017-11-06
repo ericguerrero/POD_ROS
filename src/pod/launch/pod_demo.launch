@@ -18,13 +18,19 @@
   <node pkg="pod" type="pod" name="pod" args="$(find pod)/config/ 0" output="screen">
     <remap from="image_in" to="$(arg camera)/scaled_x2/right/image_rect_color" />
     <remap from="image_out" to="image_po" />
+    <remap from="classification" to="classification" />
   </node>
   <node name="image_view_out" pkg="image_view" type="image_view">
     <remap from="image" to="image_po" />
   </node>
+  <node name="image_view_class" pkg="image_view" type="image_view">
+    <remap from="image" to="classification" />
+  </node>
   <node name="image_view_in" pkg="image_view" type="image_view">
     <remap from="image" to="$(arg camera)/scaled_x2/right/image_rect_color" />
   </node>
-
+  <node name="image_view_desc" pkg="image_view" type="image_view">
+    <remap from="image" to="descriptor" />
+  </node>
   
 </launch>

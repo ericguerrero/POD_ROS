@@ -35,12 +35,16 @@ public:
     void set_image(Mat theImage);
     // Classifies the image at patch-level
     void classify_image();
+    // Get descriptor ffrom podescriber
+    Mat get_descriptor();
     // Returns the original image.
     Mat get_image();
     // Gets the classification as a matrix of labels.
     Mat get_classification();
     // Gets the classification as an image ready to plot.
     Mat get_graphic_classification(int smoothContour=1, int doOverlay=1, float weightRed=0.5, float weightGreen=0, float weightBlue=0);
+    // Gets the classification as a binary image ready to plot.
+    Mat get_binary_classification();
     // Gets the mask
     Mat get_mask(int toImageSize=0);
 };

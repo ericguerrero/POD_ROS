@@ -23,6 +23,6 @@ else()
    message(FATAL_ERROR "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
 endif()
 
-add_executable(pod src/pod.cpp src/podnode.cpp src/podescriber.cpp src/podetector.cpp src/porefiner.cpp)
+add_executable(pod src/pod.cpp src/podnode.cpp src/podescriber.cpp src/podetector.cpp)
 add_dependencies(pod ${catkin_EXPORTED_TARGETS} ${${PROJECT_NAME}_EXPORTED_TARGETS})
 target_link_libraries(pod ${catkin_LIBRARIES} ${OpenCV_LIBS})
