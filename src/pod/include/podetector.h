@@ -22,7 +22,7 @@ private:
     Ptr<ml::SVM> _theSVM;           // The trained SVM
     PODescriber _theDescriber;      // Describer for the working image
     Mat _theClassification;         // The classification result
-    float *_imageDescriptor;         // The descriptor itself. First two indexes allow selecting at patch level.
+    float *_pDescriptor;         // The descriptor itself. First two indexes allow selecting at patch level.
     Mat _theImage;                  // Copy of the image being classified, just for drawing purposes.
     // Prepares the classification to be plotted as an overlay onto the image. Just for drawing.
     Mat _get_classification_overlay(float weightRed=1, float weightGreen=0, float weightBlue=0);
@@ -37,7 +37,7 @@ public:
     // Classifies the image at patch-level
     void classify_image();
     // Get descriptor ffrom podescriber
-    float get_descriptor();
+    float *get_descriptor();
     // Returns the original image.
     Mat get_image();
     // Gets the classification as a matrix of labels.

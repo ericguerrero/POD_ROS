@@ -33,12 +33,8 @@ void PODetector::set_image(Mat theImage) {
 
 void PODetector::classify_image() {
     _theDescriber.describe_image();
-    _imageDescriptor = _theDescriber.get_descriptor();
-    cout << "\n";
-    cout << _imageDescriptor;
-    cout << "\n";
-    cout << *_theDescriber.get_descriptor();
-    Mat descriptorMat(_POD_NPATCH_ROW_*_POD_NPATCH_COL_, _POD_DESCR_TYPES_*_POD_IMAGE_NCHAN_*_POD_GABOR_SCALES_*_POD_GABOR_ORIENT_, CV_32FC1, _imageDescriptor);
+    _pDescriptor = _theDescriber.get_descriptor();
+    Mat descriptorMat(_POD_NPATCH_ROW_*_POD_NPATCH_COL_, _POD_DESCR_TYPES_*_POD_IMAGE_NCHAN_*_POD_GABOR_SCALES_*_POD_GABOR_ORIENT_, CV_32FC1, _pDescriptor);
     _theSVM->predict(descriptorMat, _theClassification, false);
 }
 
@@ -46,8 +42,8 @@ Mat PODetector::get_image() {
     return _theImage;
 }
 
-float PODetector::get_descriptor() {
-    return *_imageDescriptor;
+float *PODetector::get_descriptor() {
+    return _pDescriptor;
 }
 
 Mat PODetector::get_classification() {
